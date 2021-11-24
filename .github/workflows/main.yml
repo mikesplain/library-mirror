@@ -28,7 +28,9 @@ jobs:
           from: ubuntu[latest,20.04,18.04]
           to: ${{ env.IMAGE_NAME }}
           extra-registry: ghcr.io
+          allowed-platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           updateAll: ${{ github.event_name != 'schedule' }}
+
     outputs:
       matrix: ${{ steps.tags.outputs.matrix }}
 
