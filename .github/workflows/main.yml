@@ -11,6 +11,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  schedule:
+  - cron:  '5 4 * * *'
+
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
@@ -21,11 +24,25 @@ jobs:
   setup-matrix:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+
+      - name: Parse repos
+        id: parse
+        run: |
+          pip install -r requirements.txt
+          echo "::set-output name=repos::$(python parser.py)"
+
       - name: Get missing tags
         id: tags
         uses: s6on/mirror-docker-tags-action@v1.1
         with:
-          from: alpine[latest,3,3.14,3.13,3.15],debian[latest,11,11-slim,10,10-slim,9,9-slim],ubuntu[latest,22.04,20.04,18.04]
+          from: ${{ steps.parse.outputs.repos }}
           to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # extra-registry: ghcr.io
           allowed-platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
