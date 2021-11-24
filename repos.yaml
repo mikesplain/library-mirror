@@ -17,3 +17,8 @@ ubuntu:
 - 22.04
 - 20.04
 - 18.04
+renovate/renovate:
+- latest
+- slim
+- 28
+- 29
