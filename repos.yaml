@@ -22,3 +22,8 @@ renovate/renovate:
 - slim
 - 28
 - 29
+summerwind/actions-runner:
+- latest
+docker:
+- dind
+- latest
