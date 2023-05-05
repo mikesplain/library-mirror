@@ -1,31 +1,21 @@
 alpine:
 - latest
 - 3
-- 3.13
 - 3.14
 - 3.15
 - 3.16
+- 3.17
 debian:
 - latest
 - 11
 - 11-slim
 - 10
 - 10-slim
-- 9
-- 9-slim
 ubuntu:
 - latest
 - 22.04
 - 20.04
 - 18.04
-renovate/renovate:
-- latest
-- slim
-- 28
-- 29
-- 30
-- 31
-- 32
 summerwind/actions-runner:
 - latest
 docker:
